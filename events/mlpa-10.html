@@ -1,0 +1,138 @@
+<html>
+<head>
+</head>
+
+<body>
+<center>
+<h4>Modules and Libraries for Proof Assistants (MLPA-10)</h4>
+15 July 2010, Edinburgh
+<br/>
+affiliated with <a href="http://www.floc-conference.org/IJCAR-home.html">IJCAR</a> and <a href="http://www.floc-conference.org/ITP-home.html">ITP</a> as part of <a href="http://www.floc-conference.org/index.html">FLoC</a>
+</center>
+
+<h4>Description</h4>
+
+<p>This was the second workshop on module systems and libraries for proof assistants succeeding <a href="http://www.itu.dk/research/pls/wiki/index.php/MLPA-09">MLPA-09</a>, which was held during <a href="http://complogic.cs.mcgill.ca/cade22/">CADE-22</a>. It was held at <a href="http://www.floc-conference.org/index.html">FLoC</a>.</p>
+
+The program consisted only of invited talks:
+<ul>
+<li><a href="http://adam.chlipala.net/">Adam Chlipala</a>: <b>A Bottom-Up Approach to Safe Low-Level Programming</b><br/>
+<a href="slides_chlipala.pdf">slides</a><br/>
+It's hard to please everyone with a systems programming language.  If we 
+follow the usual rules of language design, every programmer will miss 
+some feature and complain that some feature should have been left out.  
+Safe programming languages rely on increasingly complicated (and often 
+arbitrary-seeming) type systems and program analyses, and yet still 
+these features don't support full verification.  What if we stopped 
+trying to design a single language and instead let programmers implement 
+language features as libraries?  With traditional compiler 
+architectures, it would be very hard to ensure that the different 
+features played well together... but what if our platform is a proof 
+assistant, not a traditional compiler?  In this talk, I will discuss 
+some preliminary experiments of that kind: implementing an open "systems 
+language" via Coq metaprogramming libraries that build verified machine 
+code programs.
+</li>
+<li><a href="http://www.cse.unsw.edu.au/~kleing/">Gerwin Klein</a>: <b>Large-scale proof and libraries in Isabelle</b><br/>
+<a href="slides_klein.pdf">slides</a><br/>
+In this presentation I will give an overview on the experience on proof-reuse and proof-libraries in Isabelle/HOL in two areas.
+The first is the L4.verified project, a large-scale proof of implementation correctness on the C level of the seL4 Operating Systems Microkernel.
+The proof consists of 200,000 lines of Isabelle script, includes multiple frameworks and libraries, had used external developments in core areas, and has contributed libraries and components back into the Isabelle distribution.
+The second part of the talk will be about the experience so far in submissions and re-use in the Archive of Formal Proofs (AFP), an archive of user-contributed Isabelle developments and libraries. 
+</li>
+<li><a href="http://www.lix.polytechnique.fr/~dale/">Dale Miller</a>: <b>Towards a broad spectrum proof certificate</b><br/>
+<a href="slides_miller.pdf">slides</a><br/>
+Proof assistants and automated theorem provers generally produce
+evidence of a successful proof in an assortment of (often ad hoc)
+formats.  The extent to which one prover can understand and check such
+evidence from another prover is the extent to which they can
+successfully inter-operate.  I will outline some recent work on
+providing a single proof system that can be tuned so that it can host
+proof systems such as sequent calculus, natural deduction, tableau,
+and tabled deduction for classical and intuitionistic logics.  A proof
+checker for the hosting proof system can then immediately be a proof
+checker for all of these other proof systems.  The hope is that such a
+flexible format for proof certificates can be the basis of a lingua
+franca among proof systems.  Central to this work is the use of linear
+logic and focused proof systems.
+
+</li>
+<li><a href="http://www.cse.chalmers.se/~ulfn/">Ulf Norell</a>: <b>Modules and records in Agda</b><br/>
+<a href="slides_norell.zip">slides</a><br/>
+In Agda, record types and modules are orthogonal features; record types are simple sigma types without any advanced features such as subtyping or row polymorphism, and modules are non-first class entities whose purpose is to manage names. I will show how modules and records play together to allow us to work with hierarchical structures without having to extend the language with more powerful features.
+</li>
+<li><a href="http://homepages.inf.ed.ac.uk/dts/">Don Sannella</a>: <b>Proofs in structured specifications</b><br/>
+<a href="slides_sannella.pdf">slides</a><br/>
+Work on structured algebraic specifications provide syntax and
+semantics for a module language for proof assistants, together with a
+rich theory giving useful connections to relevant notions including
+module refinement and transformation.  Modules can be built using
+different logical systems, once appropriate connections between the
+logics in use are provided.  This theory takes a mainly model-oriented
+point of view, and proofs turn out to be less straightforward than one
+might wish.  I will give an overview of this body of work, with stress
+on the issues that arise in connection with proof.
+</li>
+<li><a href="http://math.uwb.edu.pl/~trybulec/">Andrzej Trybulec</a>: <b>Mizar Mathematical Library - a large repository of formalized mathematics</b><br/>
+Mizar is a computer system verifying mathematical proofs translated to 
+or written in the Mizar language. The Mizar Mathematical Library (MML) 
+is the main repository of formalized and computer-checked mathematics. 
+Over two hundred authors contributed to the MML, which at the present 
+includes almost ten thousand  definitions and over fifty thousand 
+theorems with complete proofs. The Hahn-Banach theorem, the Bing and Nagata-Smirnow 
+metrization theorems, the Jordan curve theorem, and the Brouwer fixed 
+point theorem are among the most advanced theorems contributed.
+The goal of the talk is to describe semantic mechnisms: structures, 
+attributes and registrations used to develop abstract mathematics in 
+Mizar.
+</li>
+</ul>
+
+Collection of abstracts in <a href="mlpa-10-talks.pdf">pdf format</a>.
+
+<h4>Goals</h4>
+<p>Over the last twenty years, users of proof assistants and automated theorem provers have created large libraries of formal proofs and mathematical knowledge.
+Module systems help with the tedious tasks of organizing, sharing, and maintaining libraries. In the view of the ever increasing complexity of this network of information, module systems offer many of the answers to the practical problems that proof assistant system developers face today and can therefore be seen as an emerging research for the automated deduction community.</p>
+
+<p>The workshop aims to attract and bring together researchers and practitioners with background and experience in the design, implementation, and application of module systems from different logic-based systems such as theorem provers, proof assistants, and programming languages.
+Because it is affiliated with both and takes place between ITP and IJCAR, the workshop will provide the fertile venue for the exchange of ideas and experiences and has the potential to impact the way we organize proofs and programs in the future.</p>
+
+<!--
+<ul>
+ <li>The design of module systems for programming languages and proof systems.</li>
+ <li>The implementation of formal digital libraries.</li>
+ <li>System descriptions of existing module systems, for example ML modules, type classes, Coq's, or Agda's module system.</li>
+ <li>Case studies regarding of information retrieval, sharing, and management of change.</li>
+ <li>Experience reports of industrial practitioners, using HOL, Isabelle/HOL, PVS, or other proof assistants.</li>
+</ul>
+-->
+
+<h4>Organization</h4>
+<ul>
+ <li><a href="http://kwarc.info/frabe/">Florian Rabe</a>, Jacobs University Bremen</li>
+ <li><a href="http://www.itu.dk/~carsten/">Carsten Sch&uuml;rmann</a>, IT University of Copenhagen</li>
+</ul>
+
+<!-- <h4>Important Dates</h4>
+<ul>
+ <li>Abstract submission: TBA</li>
+ <li>Paper submission: TBA</li>
+ <li>Author notification: TBA</li>
+ <li>Final version: TBA</li>
+</ul>
+-->
+
+<h4>Program Committee</h4>
+<ul>
+<li><a href="http://www4.informatik.tu-muenchen.de/~berghofe/">Stefan Berghofer</a>, Institut f&uuml;r Informatik, Technische Universit&auml;t M&uuml;nchen</li>
+<li><a href="http://www.mpi-sws.org/~dreyer/">Derek Dreyer</a>, Max Planck Institute for Software Systems, Saarbr&uuml;cken</li>
+<li><a href="http://research.microsoft.com/en-us/people/gonthier/">Georges Gonthier</a>, Microsoft Research, Cambridge</li>
+<li><a href="http://www.cs.rhul.ac.uk/~zhaohui/">Zhaohui Luo</a>, Royal Holloway, University of London, </li>
+<li><a href="http://www.informatik.uni-bremen.de/~till/">Till Mossakowski</a>, German research center for artificial intelligence, Bremen,</li>
+<li><a href="http://www.cl.cam.ac.uk/~so294/">Scott Owens</a>, Computer Laboratory, University of Cambridge</li>
+<li><a href="http://kwarc.info/frabe/">Florian Rabe</a>, Jacobs University Bremen (chair)</li>
+<li><a href="http://www.itu.dk/~carsten/">Carsten Sch&uuml;rmann</a>, IT University of Copenhagen (chair)</li>
+</ul>
+
+</body>
+</html>

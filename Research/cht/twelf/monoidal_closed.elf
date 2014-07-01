@@ -1,0 +1,17 @@
+%% Categorical Logic signature for monoidal closed categories
+%% requires monoidal.elf
+%% Florian Rabe, Valeria dePaiva, Till Mossakowski
+
+%% linear implication
+-o : Ob -> Ob -> Ob.                              %infix left 18 -o.
+
+%% morphisms
+lin_eval : {B: Ob} {C: Ob} (B -o C) ** B => C.
+lin_curry : A ** B => C  ->  A => (B -o C).
+
+%% rewrites
+rew_adj_1 : |- forall [f: A ** B => C] (lin_curry f) **' id B ; (lin_eval B C) ~> f.
+rew_adj_2 : |- forall [f: A => B -o C] lin_curry (f **' id B ; lin_eval B C) ~> f.
+
+%% Law for designated truth values in linear logics
+law_des_lin : |- Des == I.

@@ -1,0 +1,70 @@
+%% Categorical Logic signature for multiplicative exponential intuitionistic linear logic
+%% requires monoidal_closed.elf
+%% Florian Rabe, Valeria dePaiva, Till Mossakowski
+%% Following Sect. 8 of Benton, Bierman, de Paiva, Hyland, "Term Assignment for Intuitionistic Linear Logic"
+
+%% ! is a functor
+! : Ob -> Ob.		%prefix 24 !.
+!' : A => B -> ! A => ! B.		%prefix 24 !'.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (!, delta, eps) is comonad
+
+%% eps and delta are natural transformations
+delta : {A : Ob} ! A => ! (! A).	%prefix 22 delta.
+eps : {A : Ob} ! A => A.		%prefix 22 eps.
+law_nat_eps : |- forall [f: A => B] eps A ; f == !' f ; eps B.
+law_nat_delta : |- forall [f: A => B] delta A ; !' (!' f) == !' f ; delta B.
+%% comonad laws
+law_comonad_1: |- delta A ; eps ! A == id ! A.
+law_comonad_2: |- delta A ; !' eps A == id ! A.
+law_comonad_3: |- delta A ; delta ! A == delta A ; !' delta A.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (!, m, mI) is a monoidal functor
+
+m :  {A: Ob} {B: Ob} ! A ** ! B => ! (A ** B).
+mI : I => ! I.
+law_nat_m: |- forall [f: A => B] forall [g: C => D] !' f **' !' g ; (m B D) == (m A C) ; !'(f **' g).
+law_m_1 : |- id ! A **' mI ; (m A I) ; !' (rightI A) == (rightI ! A).
+law_m_2 : |- mI **' id ! A ; (m I A) ; !' (leftI A) == leftI (! A).
+law_m_3 : |- m A B **' id ! C ; m (A ** B) C ; !' (assoc A B C) == 
+            (assoc (! A) (! B) (! C)) ; id ! A **' m B C ; m A (B ** C).
+law_m_4 : |- m A B ; !' comm A B == comm (! A) (! B) ; m B A.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (!, eps, delta, m, mI) is a monoidal comonad
+
+law_eps_1: |- (m A B) ; eps (A ** B) == eps A **' eps B.
+law_eps_2: |- mI ; eps I == id I.
+law_delta_1: |- m A B ; delta (A ** B) == delta A **' delta B ; m (! A) (! B) ; !' (m A B).
+law_delta_2: |- mI ; !' mI == mI ; delta I.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% each object ! A is endowed with a comonoid structure (! A, erase A, copy A)
+
+%% erase and copy are natural transformations
+erase : {A: Ob} ! A => I.
+copy  : {A: Ob} ! A => ! A ** ! A.
+law_nat_erase : |- forall [f: A => B] erase A  ==  !' f ; erase B.
+law_nat_copy  : |- forall [f: A => B] copy A ; (!' f **' !' f) == !' f ; copy B.
+%% comonoid laws
+law_comonoid_1 : |- copy A ; id ! A **' erase A == rightI-inv ! A.
+law_comonoid_2 : |- copy A ; erase A **' id ! A == leftI-inv ! A.
+law_comonoid_3 : |- copy A ;  id ! A **' copy A ; assoc-inv (! A) (! A) (! A) == copy A ; copy A **' id ! A.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% interaction between comonad and comonoid structure
+
+%% (! A, delta) is a coalgebra
+prom : ! A => B  ->  ! A => ! B
+     = [f] delta A ; !' f.
+law_prom_1 : |- forall [f: ! A => B] copy A ; prom f **' prom f == prom f ; copy B. 
+law_prom_2 : |- forall [f: ! A => B] erase A == prom f ; erase B. 
+%% erase, copy are also coalgebra maps
+law_coalg_1 : |- erase A ; mI  == delta A ; !' erase A.
+law_coalg_2 : |- delta A ; !' (copy A) == copy A ; delta A **' delta A ; m (! A) (! A).
+
+%% every free coalgebra map f : (! A, delta) -> (! B, delta) is a map of comonoids f : (! A, erase A, copy A) -> (! B, erase B, copy B)
+law_coalg_comonoid_1 : |- forall [f : ! A => ! B] (delta A ; !' f == f ; delta B  impl  erase A == f ; erase B).
+law_coalg_comonoid_2 : |- forall [f : ! A => ! B] (delta A ; !' f == f ; delta B  impl  f ; copy B == copy A ; f **' f).

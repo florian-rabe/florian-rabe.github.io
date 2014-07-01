@@ -1,0 +1,41 @@
+%% Categorical Logic signature for monoidal categories
+%% requires catlog.elf
+%% Florian Rabe, Valeria dePaiva, Till Mossakowski
+
+%% multiplicative true
+I : Ob.
+
+%% multiplicative conjuction (tensor)
+** : Ob -> Ob -> Ob.		%infix none 20 **.
+**' : A => C  ->  B => D  -> A ** B => C ** D.	%infix none 20 **'.
+
+%% morphisms
+leftI : {A: Ob} I ** A => A.
+rightI : {A: Ob} A ** I => A.
+assoc : {A: Ob} {B: Ob} {C: Ob} (A ** B) ** C => A ** (B ** C). 
+comm : {A: Ob} {B: Ob} A ** B => B ** A.
+
+%% inverse morphisms
+leftI-inv : {A: Ob} A => I ** A.
+rightI-inv : {A: Ob} A => A ** I.
+assoc-inv : {A: Ob} {B: Ob} {C: Ob} A ** (B ** C) => (A ** B) ** C.
+comm-inv : {A: Ob} {B: Ob} B ** A => A ** B.
+
+%% laws
+law_leftI_iso_1 : |- leftI A ; leftI-inv A == id (I ** A).
+law_leftI_iso_2 : |- leftI-inv A ; leftI A == id A.
+law_rightI_iso_1 : |- rightI A ; rightI-inv A == id (A ** I).
+law_rightI_iso_2 : |- rightI-inv A ; rightI A == id A.
+law_assoc_iso_1 : |- (assoc A B C) ; (assoc-inv A B C) == id ((A ** B) ** C).
+law_assoc_iso_2 : |- (assoc-inv A B C) ; (assoc A B C) == id (A ** (B ** C)).
+law_comm_iso_1 : |- (comm A B) ; (comm-inv A B) == id (A ** B).
+law_comm_iso_2 : |- (comm-inv A B) ; (comm A B) == id (B ** A).
+
+law_unit_1 : |- leftI I == rightI I.
+law_unit_2 : |- (assoc A I B) ; id A **' leftI B == (rightI A **' id B).
+law_maclane : |- (assoc A B C) **' id D ; (assoc A (B ** C) D) ; id A **' (assoc B C D)
+              == (assoc (A ** B) C D) ; (assoc A B (C ** D)).
+law_comm_1 : |- (comm A B) ; (comm B A) == id A **' id B.
+law_comm_2 : |- (comm A I) ; leftI A == rightI A.
+law_comm_3 : |- (assoc A B C) ; (comm A (B ** C)) ; (assoc B C A)
+             == (comm A B) **' id C ; (assoc B A C) ; id B **' (comm A C).

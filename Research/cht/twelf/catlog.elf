@@ -1,0 +1,24 @@
+%% DFOL signature for Categorical Logic (= preorder-enriched categories with one designated object)
+%% requires dfol.elf
+%% Florian Rabe
+
+%% ob: sort of objects; Ob: terms of sort ob in DFOL
+ob : Sort.
+Ob = Terms ob.
+%% mor A B: sort of morphisms form A to B; A => B: terms of this sort in DFOL
+mor : Ob -> Ob -> Sort.
+=> = [a:Ob] [b:Ob] Terms (mor a b).	%infix none 16 =>.
+%% identity and composition
+id : {A : Ob} (A => A).
+; : A => B -> B => C -> A => C.	%infix left 12 ;.
+%% predicate for rewrites/ordering
+~> : {f : A => B} {g : A => B} Form.	%infix none 10 ~>.
+%% distinguished object for the smallest designated truth value
+Des : Ob.
+
+%% Laws
+law_id_1 : |- forall [f: A => B] id A ; f ~> f.
+law_id_2 : |- forall [f: B => A] f ; id A ~> f.
+law_assoc : |- forall [f: A => B] forall [g: B => C] forall [h: C => D] f ; (g ; h) == (f ; g) ; h.
+law_refl : |- forall [f: A => B] f == f.
+law_trans : |- forall [f: A => B] forall [g: A => B] forall [h: A => B] f == g and g == h impl f == h.

@@ -1,0 +1,14 @@
+%% Categorical Logic signature to make an intuitionistic logic classical
+%% requires int_negation.elf, cocartesian.elf
+%% Florian Rabe, Till Mossakowski
+
+%% morphism for tertium non datur
+tnd : top => A + - A.
+
+%% derived morphism for not-not elimination
+negneg_e : - - A => A =
+         (bang ; tnd) pair id (- - A) ; dist2 ; (pi1 A (- - A) +' (contr ; bangbang)). 
+
+%% rewrites for negation
+rew_negneg_1 : |- negneg_i ; negneg_e ~> id A.
+rew_negneg_2 : |- negneg_e ; negneg_i ~> id - - A.

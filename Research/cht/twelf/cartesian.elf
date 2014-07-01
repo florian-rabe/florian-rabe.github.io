@@ -1,0 +1,39 @@
+%% Categorical Logic signature for cartesian structure, i.e., conjuction and truth
+%% requires catlog.elf
+%% Florian Rabe, Till Mossakowski
+
+%% truth
+top : Ob.
+bang : A => top.
+
+%% conjunction
+* : Ob -> Ob -> Ob.			%infix none 20 *.
+pair : A => B  ->  A => C  ->  A => B * C.		%infix none 20 pair.
+Pi1 : A => B * C  ->  A => B.			%prefix 22 Pi1. 
+Pi2 : A => B * C  ->  A => C.			%prefix 22 Pi2.
+pi1 = [A: Ob] [B: Ob] Pi1 id (A * B).
+pi2 = [A: Ob] [B: Ob] Pi2 id (A * B).
+**' : {f : A => C} {g : B => D} A * B => C * D
+    = [f] [g] (pi1 A B ; f) pair (pi2 A B ; g).		%infix left 20 **'.
+%% pi1 and pi2 are the projections. Pi1 and Pi2 take their argument and post-compose the projection.
+%% **' is the morphism component taking te product taking the product of the codomains.
+
+%% equality for truth
+rew_top : |- forall [f: A => top] f == bang.
+
+%% rewrites for conjunction
+rew_conj_1 : |- forall [f: A => B * C] Pi1 f pair Pi2 f ~> f.
+rew_conj_2 : |- forall [f: A => B] forall [g: A => C] Pi1 (f pair g) ~> f.
+rew_conj_3 : |- forall [f: A => B] forall [g: A => C] Pi2 (f pair g) ~> g.
+rew_conj_4 : |- forall [f: A => B] forall [g: B => C] forall [h: B => D] 
+                (f ; g) pair (f ; h) ~> f ; (g pair h).
+
+%% derived morphism: associativity of product
+assoc1 : (A * B) * C => A * (B * C) = (pi1 (A * B) C ; pi1 A B) pair ((pi1 (A * B) C ; pi2 A B) pair pi2 (A * B) C).
+assoc2 : A * (B * C) => (A * B) * C = (pi1 A (B * C) pair (pi2 A (B * C) ; pi1 B C)) pair (pi2 A (B * C) ; pi2 B C).
+%% derived morphism: commutativity of product
+comm : A * B => B * A = pi2 A B pair pi1 A B.
+
+%% axiom for designated truth value
+law_des : |- Des == top.
+

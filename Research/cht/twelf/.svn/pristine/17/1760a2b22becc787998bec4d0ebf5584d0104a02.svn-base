@@ -1,0 +1,19 @@
+%% Categorical Logic signature for positive propositional logic, i.e., cartesian closed categories
+%% requires cartesian.elf
+%% Florian Rabe, Till Mossakowski
+
+%% implication
+--> : Ob -> Ob -> Ob.			%infix right 17 -->.
+eval : {B: Ob} {C: Ob} (B --> C) * B => C.
+curry : A * B => C  ->  A => (B --> C).
+
+%% rewrites for implication
+rew_imp_1 : |- forall [f: A * B => C] ( curry f **' id B ) ; eval B C ~> f.
+rew_imp_2 : |- forall [f: A => B --> C] forall [g:(B --> C) * B => C]  curry ( ( f **' id B) ; g ) ~> f ; curry(g).
+rew_imp_3 : |- curry (eval B C) ~> id (B --> C).
+
+%% the name of an arrow
+name : A => B -> top => (A --> B)
+     = [f] curry (pi2 top A ; f).
+unname : top => (A --> B) -> A => B
+       = [g] bang pair id A ; g **' id A ; eval A B.

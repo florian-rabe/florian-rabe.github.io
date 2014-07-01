@@ -1,0 +1,13 @@
+%% Categorical Logic signature for intuitionistic negation (only derived operations)
+%% requires cartesian_closed.elf
+%% Florian Rabe, Till Mossakowski
+
+%% negation
+- : Ob -> Ob
+  = [A] A --> bot.		%prefix 24 -.
+neg : A * B => bot  ->  A => - B
+    = curry.	%prefix 22 neg.
+contr : A * - A => bot
+      = comm ; eval A bot.
+negneg_i : A => - - A
+         = neg contr.
