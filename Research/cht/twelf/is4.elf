@@ -1,0 +1,72 @@
+%% Categorical Logic signature for modalities of intuitionistic S4
+%% requires cartesian.elf
+%% Florian Rabe, Till Mossakowski
+%% following Sect. 7 of Biermann, de Paiva, "On an Intuitionistic Modal Logic" [1]
+
+%% box is a functor
+box : Ob -> Ob.		%prefix 24 box.
+box' : A => B -> box A => box B.	%prefix 24 box'.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (box, delta, eps) is comonad
+
+%% eps and delta are natural transformations
+delta : {A : Ob} box A => box (box A).	%prefix 22 delta.
+eps : {A : Ob} box A => A.		%prefix 22 eps.
+law_nat_eps : |- forall [f: A => B] eps A ; f == box' f ; eps B.
+law_nat_delta : |- forall [f: A => B] delta A ; box' (box' f) == box' f ; delta B.
+%% comonad laws
+law_comonad_1: |- delta A ; eps box A == id box A.
+law_comonad_2: |- delta A ; box' eps A == id box A.
+law_comonad_3: |- delta A ; delta box A == delta A ; box' delta A.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (box, m, mtop) is a monoidal functor
+
+m :  {A: Ob} {B: Ob} box A * box B => box (A * B).
+mtop : top => box top.
+law_nat_m: |- forall [f: A => B] forall [g: C => D] box' f **' box' g ; (m B D) == (m A C) ; box' (f **' g).
+law_m_1 : |- id (box A) **' mtop ; m A top ; box' (pi1 A top) == pi1 (box A) top.
+law_m_2 : |- mtop **' id (box A) ; m top A ; box' (pi2 top A) == pi2 top (box A).
+law_m_3 : |- m A B **' id box C ; m (A * B) C ; box' assoc1 ==
+            assoc1 ; id box A **' m B C ; m A (B * C).
+law_m_4 : |- comm ; m B A == m A B ; box' comm.
+
+%% Note that assoc2 is used in [1]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (box, eps, delta, m, mtop) is a monoidal comonad
+
+law_eps_1: |- (m A B) ; eps (A * B) == eps A **' eps B.
+law_eps_2: |- mtop ; eps top == id top.
+law_delta_1: |- m A B ; delta (A * B) == delta A **' delta B ; m (box A) (box B) ; box' (m A B).
+law_delta_2: |- mtop ; box' mtop == mtop ; delta top.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (dia, eta, mu) is a monad
+
+%% diamond is a functor
+dia : Ob -> Ob.		%prefix 24 dia.
+dia' : A => B -> dia A => dia B.	%prefix 24 dia'.
+%% eta and mu are natural transformations
+mu : {A : Ob} dia (dia A) => dia A.	%prefix 22 mu.
+eta : {A : Ob} A => dia A.		%prefix 22 eta.
+law_nat_eta : |- forall [f: A => B] eta A ; dia' f == f ; eta B.
+law_nat_mu : |- forall [f: A => B] mu A ; dia' f == dia' (dia' f) ; mu B.
+%% monad laws
+law_monad_1 : |- eta dia A ; mu A == id dia A.
+law_monad_2 : |- dia' eta A ; mu A == id dia A.
+law_monad_3 : |- mu dia A ; mu A == dia' mu A ; mu A.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (dia, eta, mu) is a (box, eps, delta, m, mtop)-strong monad
+
+st : {A : Ob} {B : Ob} box A * dia B => dia (box A * B).
+
+law_st_1 : |- eps top **' id (dia A) ; pi2 top (dia A)
+           == st top A ; dia'(eps top **' id A) ; dia' (pi2 top A).
+law_st_2 : |- assoc2 ; m A B **' id (dia C) ; st (A * B) C
+           == id (box A) **' st B C ; st A (box B * C) ; dia' assoc2 ; dia' (m A B **' id C).
+law_st_3 : |- id (box A) **' eta B ; st A B == eta (box A * B).  
+law_st_4 : |- st A (dia B) ; dia' (st A B) ; mu (box A * B)
+           == id box A **' mu B ; st A B.

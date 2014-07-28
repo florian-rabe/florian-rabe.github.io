@@ -1,0 +1,40 @@
+%% Categorical Logic signature for cocartesian structure, i.e., disjunction and falsity
+%% Alternative version for which the proof of the deduction theorem goes through
+%% requires cartesian_closed.elf
+%% Florian Rabe, Till Mossakowski
+
+%% falsity
+bot : Ob.
+bangbang : bot => A.
+
+%% disjunction
++ : Ob -> Ob -> Ob.		%infix left 18 +.
+inl : {A: Ob} {B: Ob} A => A + B.
+inr : {A: Ob} {B: Ob} B => A + B.
+plus : (A --> C) * (B --> C) => (A + B) --> C.
+
+%% + on arrows as a derived operation (cannot be primitive because otherwise proof of deduction theorem would not go through)
++' : A => C  ->  B => C  ->  A + B => C
+   = [p][q] unname (name p pair name q ; plus).	%infix left 18 +'.
+
+++' : A => C  ->  B => D  ->  A + B => C + D
+    = [f] [g] (f ; inl C D) +' (g ; inr C D). 	%infix left 18 ++'.
+
+%% rewrites for false
+rew_bot : |- forall [f: bot => A] f ~> bangbang.
+
+%% rewrites for disjunction
+rew_disj_1 : |- forall [f: A + B => C] (inl A B ; f) +' (inr A B ; f) ~> f.
+rew_disj_2 : |- forall [f: A => C] forall [g: B => C] inl A B ; f +' g ~> f.
+rew_disj_3 : |- forall [f: A => C] forall [g: B => C] inr A B ; f +' g ~> g.
+
+%% derived morphisms: distributive laws
+dist1 : (A * C) + (B * C) => (A + B) * C
+      = ((pi1 A C ; inl A B) +' (pi1 B C ; inr A B)) pair (pi2 A C +' pi2 B C).
+dist2 : (A + B) * C => (A * C) + (B * C)
+      = (curry (inl (A * C) (B * C)) +' curry (inr (A * C) (B * C))) **' id C
+        ; eval C ((A * C) + (B * C)).
+
+%% derived morphisms: cut
+cut : B => A + C  ->  D * A => E  ->  B * D => C + E
+    = [f] [g] ( (f **' (id D)) ; dist2 ; (comm ++' id (C * D)) ; ((g ; inr C E) +' (pi1 C D ; inl C E)) ).

@@ -1,0 +1,90 @@
+<html>
+<head></head>
+<body>
+
+<h2>Determining the Subset Relationship between Propositional Modal Logics</h2>
+
+Designed and implemented by Florian Rabe. Go <a href="http://kwarc.eecs.iu-bremen.de/frabe/Research/moloss/">here</a> for the paper containing the mathematical documentation and further details.<p>
+
+This is work in progress and not a release version - please do not hesitate to contact me if you cannot get it to work, have special questions, a bug report or want to contribute. You can change and distribute the software for research purposes under the usual academic rules if you provide me with the improvements you obtain. <p>
+
+<h4>Files</h4>
+The package consists of the following files: <p>
+
+<table>
+<tr><td>sources.cm </td><td> File to be passed to SML/NJ's compilation manager to load all files</td></tr>
+<tr><td>main.sml </td><td> The main part of the routines</td></tr>
+<tr><td>strategies_provers.sig </td><td> Interfaces between modules.</td></tr>
+<tr><td>strategies.sml </td><td> The main code is parametric in strategies.</td></tr>
+<tr><td>provers.sml </td><td> The strategies are parametric in provers.</td></tr>
+<tr><td>tptp.sml </td><td> Auxiliary code for TPTP syntax</td></tr>
+<tr><td>modal.sml </td><td> Auxiliary code for modal logic</td></tr>
+<tr><td>rules.sml </td><td> Auxiliary code that reads the file axioms_and_rules.tptp and provides functions to refer to its content</td></tr>
+<tr><td>axioms_and_rules.tptp </td><td> A list of standard axioms and rules</td></tr>
+<tr><td>utils.sml </td><td> Auxiliary code containing various utilities</td></tr>
+<tr><td>regexp.sml </td><td> Auxiliary code to deal with regular expressions because the SML/NJ syntax is terrible.</td></tr>
+<tr><td>definitions.tptp </td><td> Basic definitions of the connectives.</td></tr>
+<tr><td>pc_big.tptp </td><td> The big expansion of the special rule pc</td></tr>
+<tr><td>pc_small.tptp </td><td> The small expansion of the special rule pc</td></tr>
+<tr><td>definitions_kripke.tptp </td><td> Definitions passed to a model finder by the Kripke strategy.</td></tr>
+<tr><td>scan_main.pl </td><td> The main Scan sript</td></tr>
+<tr><td>operators.pl </td><td> An auxiliary Scan script</td></tr>
+<tr><td>scan.pl </td><td> An auxiliary Scan script</td></tr>
+<tr><td>Scan </td><td> The Scan executable for SunOS/Solaris (called by the main script)</td></tr>
+<tr><td>big.tptp </td><td> An example input file</td></tr>
+<tr><td>small.tptp </td><td> An example input file</td></tr>
+<tr><td>scan_db.txt </td><td> A file containing the most common calls to Scan and its output if you don't have Solaris or want to skip the Scan calls. Whether this file is used, is determined by the variable Scan.dblookup : boolean ref</td></tr>
+</table><p>
+
+<h4>Used third-party software</h4>
+You need <a href="http://www.smlnj.org/">SMLNJ</a> installed and binaries for Vampire (I got it from the <a href="http://www.tptp.org/CASC">CASC</a> site.) and <a href="http://www.math.chalmers.se/~koen/paradox/">Paradox</a> in the current directory. I used the versions 110.58, 7.45 and 1.3 respectively, older or newer ones probably work, too.<p>
+
+The program is supposed to call <a href="http://www.mpi-inf.mpg.de/departments/d2/software/SCAN/">SCAN</a>, which is included but requires Solaris to run; for simplicity, the current program outputs the command line to call SCAN with and expects to be copy-pasted back Scan's output. SCAN requires Prolog; its directory and a path to Prolog have to be set in the variables $path and $FORM{'prolog'} in scan_main.pl. The inclusion of the slightly adapted SCAN files occurs with permission of the developers of SCAN.<p>
+
+Syntax used to call vampire: ./vampire --mode casc -t [time] temp_input.tptp > temp_output<br>
+Syntax used to call paradox: ./paradox --sizes [n] --model temp_model temp_input.tptp > temp_output<br>
+Syntax used to call Scan: e.g. ./scan_main.pl "imp(box(X),X)" "X" <p>
+
+<h4>Usage</h4>
+
+After loading all sml files, call the program by<br>
+Main.compare(file1,file2)<br>
+where file1 and file2 are file names containing two logics in TPTP format (permitting the special rules as described in the paper). <p>
+
+A typical SML start-up looks like this:<br>
+> cd moloss directory<br>
+> sml<br>
+- CM.make("sources.cm");<br>
+- Main.compare("small.tptp","big.tptp"); <p>
+
+Alternatively, you can compare sets of hard-coded axiomatizations by<br>
+- Main.compare_many(from, to, oracle);<br>
+where from and to are lists of axiomatizations as defined in rules.sml. For example, from=[Rules.K] and to=[Rules.S10,Rules.S1] tries to derive S1 and S10 from K. oracle is a boolean that can be set to true to use an oracle that skips the proving attempts and jumps to disproving attempts immediately. If from or to is nil, it is replaced with the list of 11 axiomatizations, we used as examples. For example, you would call<br>
+- Main.compare_many(nil,nil,false);<br>
+to recreate our test suite.<p>
+
+If you want to switch off strategies, you can uncomment them in the definitions of incl_strategies and nonincl_strategies in main.sml.<p>
+
+During execution, before every external call, the program will display the following menu. <p>
+
+**External call<br>
+[command line]<br>
+in attempt to prove [TPTP formula]<br>
+  s: skip with success<br>
+  f: skip with failure<br>
+  r=x: success with result x<br>
+  a: run and do not ask anymore<br>
+  other: run <p>
+
+Its semantics is:<br>
+<table>
+<tr><td>s/f</td><td>Skip the external call, assume the proof succeeded/failed. (This is helpful, if only certain parts of the search are interesting.)</td></tr>
+<tr><td>r=x</td><td>Skip the external call, assume the action succeeded and assume x to be the returned result. (This is necessary to supply the results of Scan if the program is not run on a Solaris machine. It is also possible to use the entries of scan_db.txt.)</td></tr>
+<tr><td>a</td><td>Run this external call and run all following ones automatically.</td></tr>
+<tr><td>other</td><td>Run this external call and display this menu again next time.</td></tr>
+</table><p>
+Some log, success and failures notes are displayed during execution. The complete output including the proof objects and models returned by the external calls will be output at the end. A logfile is set by calling Output.init(file) where file is a filename (Existing file will be deleted.). Output verbosity is controlled by Output.verboselevel_display : int ref and Output.verboselevel_logfile : int ref which must have values below 5 if you do not want to see the full output returned by the external tools.
+<p>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+%% Categorical Logic signature for disjunction and falsity
+%% requires catlog.elf
+%% Florian Rabe, Till Mossakowski
+
+%% falsity
+bot : Ob.
+bangbang : bot => A.
+
+%% disjunction
++ : Ob -> Ob -> Ob.		%infix left 18 +.
+inl : {A: Ob} {B: Ob} A => A + B.
+inr : {A: Ob} {B: Ob} B => A + B.
++' : A => C  ->  B => C  ->  A + B => C.	%infix left 18 +'.
+
+%% rewrites for false
+rew_bot : |- forall [f: bot => A] f ~> bangbang.
+
+%% rewrites for disjunction
+rew_disj_1 : |- forall [f: A + B => C] (inl A B ; f) +' (inr A B ; f) ~> f.
+rew_disj_2 : |- forall [f: A => C] forall [g: B => C] inl A B ; f +' g ~> f.
+rew_disj_3 : |- forall [f: A => C] forall [g: B => C] inr A B ; f +' g ~> g.
+
+%% derived morphisms: distributive laws
+%% dist2 cannot be derived since the category is not cartesian closed
+dist1 : (A * C) + (B * C) => (A + B) * C
+      = ((pi1 A C ; inl A B) +' (pi1 B C ; inr A B)) pair (pi2 A C +' pi2 B C).

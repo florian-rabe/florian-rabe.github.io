@@ -1,0 +1,84 @@
+                      Third International Workshop on
+	      Modules and Libraries for Proof Assistants
+			      (MLPA'11)
+	   http://kwarc.info/frabe/events/mlpa-11/index.html
+
+		       Affiliated with ITP
+             Nijmegen, The Netherlands, August 22-27, 2011
+
+			   CALL FOR PAPERS
+
+-----------------------------------------------------------------------
+
+Submission deadline:    20 June 2011
+Author Notification:     1 July 2011
+Final Version:          11 July 2011
+Workshop day:           26 August 2011
+
+-----------------------------------------------------------------------
+
+MLPA'11 is the third International Workshop on Modules and Libraries
+for Proof Assistants. Previous meetings were held at CADE 2009 and at
+FLoC 2010.
+
+MLPA aims at bringing together researchers and practitioners with
+background and experience in module systems from different logic-based
+systems, such as theorem provers, proof assistants, and programming
+languages. It will provide a fertile venue for the exchange of ideas and
+experiences and has the potential to impact the way we organize proofs
+and programs in the future.
+
+We want to foster discussion of state-of-the-art results and techniques,
+from theory and practice of module systems. This includes but is not limited
+to:
+
+* The design of module systems for programming languages and proof
+  systems.
+
+* System descriptions of existing module systems, for example ML
+  modules, type classes, Coq's, Isabelle's, or Agda's module system.
+
+* The implementation of formal digital libraries.
+
+* Case studies regarding information retrieval, sharing, and
+  management of change.
+
+* Experience reports of industrial practitioners, using e.g., HOL,
+  PVS, or other proof assistants.
+
+Program Committee:
+
+  * Gerwin Klein, NICTA
+  * Dale Miller, INRIA
+  * Brigitte Pientka, McGill University
+  * Florian Rabe, Jacobs University Bremen (chair)
+  * Claudio Sacerdoti Coen, University of Bologna
+  * Carsten Schürmann, IT University of Copenhagen (chair)
+
+Submission Categories:
+
+* Category A: Detailed accounts of novel research - up to 15 pages.
+
+* Category B: Abstracts and short descriptions of current work and
+  proposed directions - up to 5 pages.
+
+* Category C: System descriptions presenting an implemented tool and
+  its features - up to 5 pages.
+
+Shorter papers are welcome. Submission is electronic via easychair.
+The submission site is
+https://www.easychair.org/conferences/?conf=mlpa11
+
+Proceedings are published informally and will be available to the
+participants at the workshop. Formal post-proceedings will be
+considered depending on the number and quality of submissions.
+
+Authors of accepted papers are expected to present their work at
+the workshop. System descriptions should be accompanied with a demo.
+
+Organizers:
+
+Florian Rabe                        Carsten Schuermann
+f.rabe at jacobs-university.de      carsten at itu.dk
+Jacobs University                   IT University of Copenhagen
+Bremen, Germany		      	    Copenhagen, Denmark

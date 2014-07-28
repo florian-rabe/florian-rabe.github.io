@@ -1,0 +1,75 @@
+%sig monoidal_comonad = {
+
+%% declarations are relative to
+%% an object unit
+unit : Ob.
+%% a functor fun
+fun : Ob -> Ob.		%prefix 24 fun.
+fun' : A => B -> fun A => fun B.	%prefix 24 fun'.
+%% a product times
+times : Ob -> Ob -> Ob.		%infix none 20 times.
+times' : A => C -> B => D -> A times B => C times D.	%infix none 20 times'.
+p1 : A times B => A.
+p2 : A times B => B.
+alpha : (A times B) times C => A times (B times C).
+gamma : A times B => B times A.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (fun, delta, eps) is comonad
+
+%% eps and delta are natural transformations
+delta : {A : Ob} fun A => fun (fun A).	%prefix 22 delta.
+eps : {A : Ob} fun A => A.		%prefix 22 eps.
+law_nat_eps : |- forall [f: A => B] eps A ; f == fun' f ; eps B.
+law_nat_delta : |- forall [f: A => B] delta A ; fun' (fun' f) == fun' f ; delta B.
+%% comonad laws
+law_comonad_1: |- delta A ; eps fun A == id fun A.
+law_comonad_2: |- delta A ; fun' eps A == id fun A.
+law_comonad_3: |- delta A ; delta fun A == delta A ; fun' delta A.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (fun, m, munit) is a monoidal functor
+
+m :  {A: Ob} {B: Ob} fun A times fun B => fun (A times B).
+munit : unit => fun unit.
+law_m_1 : |- id (fun A) times' munit ; m A unit ; fun' p1 == p1.
+law_m_2 : |- munit times' id (fun A) ; m unit A ; fun' p2 == p2.
+law_m_3 : |- (m A B) times' id fun C ; m (A times B) C ; fun' alpha
+          == alpha ; id (fun A) times' (m B C) ; m A (B times C).
+law_m_4 : |- gamma ; m B A == m A B ; fun' gamma.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% (fun, eps, delta, m, munit) is a monoidal comonad
+
+law_eps_1: |- (m A B) ; eps (A times B) == eps A times' eps B.
+law_eps_2: |- munit ; eps unit == id unit.
+law_delta_1: |- m A B ; delta (A times B) == delta A times' delta B ; m (fun A) (fun B) ; fun' (m A B).
+law_delta_2: |- munit ; fun' munit == munit ; delta unit.
+}.
+
+
+%% instantiation for IS4:
+%% %include monoidal_comonad %where {
+%%       unit := top.
+%%       fun := box.
+%%       fun' := box'.
+%%       times := *.
+%%       times' := **'.
+%%       p1 := pi1.
+%%       p2 := pi2.
+%%       alpha := assoc1.
+%%       gamma := comm.
+%% }
+
+%% instantiation for linear logic:
+%% %include monoidal_comonad %where {
+%%       unit := I.
+%%       fun := !.
+%%       fun' := !'.
+%%       times := **.
+%%       times' := **'.
+%%       p1 := rightI.
+%%       p2 := leftI.
+%%       alpha := assoc.
+%%       gamma := comm.
+%% }
