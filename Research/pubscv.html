@@ -11,7 +11,7 @@
          var next = (current == 'block') ? 'none' : 'block';
          button.nextSibling.style.display = next;
       }
-      </script></head><body><ul><li><a href="#Articles in Journals">Articles in Journals</a></li><li><a href="#Refereed Articles in Archival Collections">Refereed Articles in Archival Collections</a></li><li><a href="#Refereed Articles in Non-Archival Collections">Refereed Articles in Non-Archival Collections</a></li><li><a href="#Invited Articles in Archival Collections">Invited Articles in Archival Collections</a></li><li><a href="#Theses">Theses</a></li><li><a href="#Edited Collections">Edited Collections</a></li><li><a href="#Reviews">Reviews</a></li><li><a href="#Other Publications (most of them lightly refereed)">Other Publications (most of them lightly refereed)</a></li><li><a href="#Under Review">Under Review</a></li></ul><ul><li>
+      </script></head><body><ul><li><a href="#Articles in Journals">Articles in Journals</a></li><li><a href="#Refereed Articles in Major Collections">Refereed Articles in Major Collections</a></li><li><a href="#Refereed Articles in Other Collections">Refereed Articles in Other Collections</a></li><li><a href="#Invited Articles in Collections">Invited Articles in Collections</a></li><li><a href="#Theses">Theses</a></li><li><a href="#Edited Collections">Edited Collections</a></li><li><a href="#Reviews">Reviews</a></li><li><a href="#Other Publications (most of them lightly refereed)">Other Publications (most of them lightly refereed)</a></li><li><a href="#Under Review">Under Review</a></li></ul><ul><li>
               <p class="heading" id="Articles in Journals">Articles in Journals</p>
               <ol reversed="reversed"><li id="rabe_lax_14">
           <div>
@@ -250,8 +250,54 @@
           </div>
       </li></ol>
             </li><li>
-              <p class="heading" id="Refereed Articles in Archival Collections">Refereed Articles in Archival Collections</p>
-              <ol reversed="reversed"><li id="HRK_sequences_14">
+              <p class="heading" id="Refereed Articles in Major Collections">Refereed Articles in Major Collections</p>
+              <ol reversed="reversed"><li id="HR_tptp_12">
+          <div>
+            <span class="title"><a href="http://kwarc.info/frabe/Research/HR_tptp_15.pdf">Formal Logic Definitions for Interchange Languages</a></span>,
+            <span><a href="http://kwarc.info/fhorozal/" class="author student">Fulya Horozal</a>, <a href="http://kwarc.info/frabe/" class="author">Florian Rabe</a>, 2015</span>
+          </div>
+          <div><span>
+       Intelligent Computer Mathematics<span>, <span class="">M. Kerber</span>, <span class="">J. Carette</span>, <span class="">C. Kaliszyk</span>, <a href="http://kwarc.info/frabe/" class="author">Florian Rabe</a>, <span class="">V. Sorge</span> (eds.)</span><span/>
+       <span>,  Lecture Notes in Computer Science, Springer</span>
+      </span></div>
+          <div><span>to appear</span></div>
+          <div>
+            
+            <button onclick="bibTexButton(event.target)">BibTex</button><textarea cols="80" rows="9" readonly="readonly" style="display:none">@inproceedings{HR:tptp:12,
+  author = &quot;F. Horozal and F. Rabe&quot;,
+  title = &quot;{Formal Logic Definitions for Interchange Languages}&quot;,
+  year = &quot;2015&quot;,
+  note = &quot;to appear; see \url{http://kwarc.info/frabe/Research/HR_tptp_15.pdf}&quot;,
+  booktitle = &quot;Intelligent Computer Mathematics&quot;,
+  editor = &quot;M. Kerber and J. Carette and C. Kaliszyk and F. Rabe and V. Sorge&quot;,
+  publisher = &quot;Springer&quot;
+}
+</textarea>
+          </div>
+      </li><li id="rabe_literals_14">
+          <div>
+            <span class="title"><a href="http://kwarc.info/frabe/Research/rabe_literals_14.pdf">Generic Literals</a></span>,
+            <span><a href="http://kwarc.info/frabe/" class="author">Florian Rabe</a>, 2015</span>
+          </div>
+          <div><span>
+       Intelligent Computer Mathematics<span>, <span class="">M. Kerber</span>, <span class="">J. Carette</span>, <span class="">C. Kaliszyk</span>, <a href="http://kwarc.info/frabe/" class="author">Florian Rabe</a>, <span class="">V. Sorge</span> (eds.)</span><span/>
+       <span>,  Lecture Notes in Computer Science, Springer</span>
+      </span></div>
+          <div><span>to appear</span></div>
+          <div>
+            
+            <button onclick="bibTexButton(event.target)">BibTex</button><textarea cols="86" rows="9" readonly="readonly" style="display:none">@inproceedings{rabe:literals:14,
+  author = &quot;F. Rabe&quot;,
+  title = &quot;{Generic Literals}&quot;,
+  year = &quot;2015&quot;,
+  note = &quot;to appear; see \url{http://kwarc.info/frabe/Research/rabe_literals_14.pdf}&quot;,
+  booktitle = &quot;Intelligent Computer Mathematics&quot;,
+  editor = &quot;M. Kerber and J. Carette and C. Kaliszyk and F. Rabe and V. Sorge&quot;,
+  publisher = &quot;Springer&quot;
+}
+</textarea>
+          </div>
+      </li><li id="HRK_sequences_14">
           <div>
             <span class="title"><a href="HRK_sequences_14.pdf">Flexary Operators for Formalized Mathematics</a></span>,
             <span><a href="http://kwarc.info/fhorozal/" class="author student">Fulya Horozal</a>, <a href="http://kwarc.info/frabe/" class="author">Florian Rabe</a>, <a href="http://kwarc.info/kohlhase/" class="author">Michael Kohlhase</a>, 2014</span>
@@ -757,25 +803,27 @@
           </div>
       </li></ol>
             </li><li>
-              <p class="heading" id="Refereed Articles in Non-Archival Collections">Refereed Articles in Non-Archival Collections</p>
+              <p class="heading" id="Refereed Articles in Other Collections">Refereed Articles in Other Collections</p>
               <ol reversed="reversed"><li id="rabe_ui_14">
           <div>
             <span class="title"><a href="rabe_ui_14.pdf">A Logic-Independent IDE</a></span>,
             <span><a href="http://kwarc.info/frabe/" class="author">Florian Rabe</a>, 2014</span>
           </div>
           <div><span>
-       Workshop on User Interfaces for Theorem Provers<span>, <span class="">C. Benzmüller</span>, <span class="">B. Woltzenlogel Paleo</span> (eds.)</span><span/>
-       
+       Workshop on User Interfaces for Theorem Provers<span>, <span class="">C. Benzmüller</span>, <span class="">B. Woltzenlogel Paleo</span> (eds.)</span><span>, pp. 48-60</span>
+       <span>,  volume 167 of Electronic Notes in Theoretical Computer Science, Elsevier</span>
       </span></div>
           <div></div>
           <div>
             <a href="slides/rabe_ui_14.pdf">Slides</a>
-            <button onclick="bibTexButton(event.target)">BibTex</button><textarea cols="64" rows="7" readonly="readonly" style="display:none">@inproceedings{rabe:ui:14,
+            <button onclick="bibTexButton(event.target)">BibTex</button><textarea cols="64" rows="9" readonly="readonly" style="display:none">@inproceedings{rabe:ui:14,
   author = &quot;F. Rabe&quot;,
   title = &quot;{A Logic-Independent IDE}&quot;,
   year = &quot;2014&quot;,
+  pages = &quot;48--60&quot;,
   booktitle = &quot;Workshop on User Interfaces for Theorem Provers&quot;,
-  editor = &quot;C. Benzmüller and B. {Woltzenlogel Paleo}&quot;
+  editor = &quot;C. Benzmüller and B. {Woltzenlogel Paleo}&quot;,
+  publisher = &quot;Elsevier&quot;
 }
 </textarea>
           </div>
@@ -961,7 +1009,7 @@
           </div>
       </li></ol>
             </li><li>
-              <p class="heading" id="Invited Articles in Archival Collections">Invited Articles in Archival Collections</p>
+              <p class="heading" id="Invited Articles in Collections">Invited Articles in Collections</p>
               <ol reversed="reversed"><li id="rabe_gi_09">
           <div>
             <span class="title">Representing Logics and Logic Translations</span>,
@@ -1064,7 +1112,25 @@
       </li></ol>
             </li><li>
               <p class="heading" id="Edited Collections">Edited Collections</p>
-              <ol reversed="reversed"><li id="LangeEA_cicmws_13">
+              <ol reversed="reversed"><li id="KCKRS_cicm_15">
+          <div>
+            <span class="title">Intelligent Computer Mathematics</span>,
+            <span><span class="">M. Kerber</span>, <span class="">J. Carette</span>, <span class="">C. Kaliszyk</span>, <a href="http://kwarc.info/frabe/" class="author">Florian Rabe</a>, <span class="">V. Sorge</span>, 2015</span>
+          </div>
+          <div><p>Lecture Notes in Computer Science, Springer</p></div>
+          <div><span>in preparation</span></div>
+          <div>
+            
+            <button onclick="bibTexButton(event.target)">BibTex</button><textarea cols="79" rows="7" readonly="readonly" style="display:none">@proceedings{KCKRS:cicm:15,
+  title = &quot;{Intelligent Computer Mathematics}&quot;,
+  year = &quot;2015&quot;,
+  note = &quot;in preparation&quot;,
+  editor = &quot;M. Kerber and J. Carette and C. Kaliszyk and F. Rabe and V. Sorge&quot;,
+  publisher = &quot;Springer&quot;
+}
+</textarea>
+          </div>
+      </li><li id="LangeEA_cicmws_13">
           <div>
             <span class="title">Workshops and Work in Progress at CICM 2013</span>,
             <span><span class="">C. Lange</span>, <span class="">D. Aspinall</span>, <span class="">J. Carette</span>, <span class="">J. Davenport</span>, <span class="">A. Kohlhase</span>, <span class="">M. Kohlhase</span>, <span class="">P. Libbrecht</span>, <span class="">P. Quaresma</span>, <a href="http://kwarc.info/frabe/" class="author">Florian Rabe</a>, <span class="">P. Sojka</span>, <span class="">I. Whiteside</span>, <span class="">W. Windsteiger</span>, 2013</span>
@@ -1636,7 +1702,7 @@
           <div></div>
           <div>
             
-            <button onclick="bibTexButton(event.target)">BibTex</button><textarea cols="73" rows="6" readonly="readonly" style="display:none">@unpublished{rabe_theoexp_15,
+            <button onclick="bibTexButton(event.target)">BibTex</button><textarea cols="73" rows="6" readonly="readonly" style="display:none">@unpublished{rabe:theoexp:15,
   author = &quot;F. Rabe&quot;,
   title = &quot;{Theory Expressions (A Survey)}&quot;,
   year = &quot;2015&quot;,
