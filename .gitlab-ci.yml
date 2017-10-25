@@ -1,0 +1,23 @@
+stages:
+  - deploy
+
+before_script:
+  # install ssh-agent, unless already there
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+  # install rsync, unless already there
+  - 'which rsync || ( apt-get update -y && apt-get install rsync -y )'
+
+  # setup ssh agent with the private key
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+deploy_staging:
+  stage: deploy
+  script:
+    # copy over all the files into the deployment folder if their checksum has changed
+    - rsync -rv -e ssh --checksum --exclude='.git/' --exclude 'filme/' --exclude='.gitlab-ci.yml' --exclude 'README.md' --delete-excluded ./ deploy@magma.informatik.uni-erlangen.de:/var/www/frabe.kwarc.info
+  only:
+    - master
