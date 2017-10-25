@@ -1,6 +1,8 @@
 stages:
   - deploy
 
+image: kwarc/static-website-deployer
+
 before_script:
   # install ssh-agent, unless already there
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
