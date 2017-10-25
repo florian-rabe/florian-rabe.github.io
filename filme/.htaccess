@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Florians Filme"
-AuthUserFile /home/frabe/.htpasswd
-Require user florian_filme
