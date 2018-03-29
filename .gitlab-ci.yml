@@ -20,6 +20,6 @@ deploy_staging:
   stage: deploy
   script:
     # copy over all the files into the deployment folder if their checksum has changed
-    - rsync -rv -e ssh --checksum --exclude='.git/' --exclude='.gitlab-ci.yml' --exclude 'README.md' --delete-excluded --delete ./ deploy@static.kwarc.info:/var/www/kwarc.info/custom/frabe
+    - rsync -rv -e "ssh -p $SSH_DEPLOY_PORT" --checksum --exclude='.git/' --exclude='.gitlab-ci.yml' --exclude 'README.md' --delete-excluded --delete ./ root@static.kwarc.info:/root/data
   only:
     - master
